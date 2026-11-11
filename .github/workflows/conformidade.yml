@@ -1,0 +1,42 @@
+name: Conformidade da API
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inicializar exatamente como na avaliação
+        run: |
+          docker compose down -v
+          docker compose up --build -d
+          docker compose up --wait --wait-timeout 120
+      - name: Testar contratos e concorrência com PostgreSQL real
+        run: >-
+          docker compose -f docker-compose.yml -f docker-compose.test.yml
+          run --build --rm -v "$PWD/output:/app/output" tests
+      - name: Testar a API de produção pelo HTTP
+        run: >-
+          docker compose -f docker-compose.yml -f docker-compose.test.yml
+          run --rm -e BASE_URL=http://api:8080
+          -v "$PWD/output:/app/output" tests npm run load
+      - name: Exibir logs
+        if: always()
+        run: docker compose logs --no-color
+      - name: Guardar evidências
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: resultados-conformidade
+          path: output/*.json
+      - name: Encerrar ambiente de teste
+        if: always()
+        run: docker compose down -v

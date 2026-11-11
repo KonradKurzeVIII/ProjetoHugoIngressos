@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ed">
+  <meta name="description" content="Reserve seu lugar no show. Cem ingressos, até duas reservas por pessoa.">
+  <title>Ingresos — Viva de perto.</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/assets/app.css">
+  <script type="module" src="/assets/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+  <header class="header wrap">
+    <a class="brand" href="/" aria-label="Ingresos, início">
+      <svg viewBox="0 0 32 32" width="31" height="31" aria-hidden="true"><path d="M5 5h22v7a4 4 0 0 0 0 8v7H5v-7a4 4 0 0 0 0-8Z" fill="none" stroke="currentColor" stroke-width="2.3"/><path d="M19 8v4m0 3v3m0 3v3" stroke="currentColor" stroke-width="2"/></svg>
+      ingresos<span class="brand-period">.</span>
+    </a>
+    <nav class="navigation" aria-label="Navegação principal">
+      <a href="#show">O show</a>
+      <a href="#tickets">Meus ingressos</a>
+    </nav>
+    <div class="header-account">
+      <span id="account-name" class="account-name" hidden></span>
+      <button id="logout" class="text-button" type="button" hidden>Sair <span aria-hidden="true">↗</span></button>
+      <a id="login-link" class="header-login" href="#access">Entrar <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow"><span class="tiny-star" aria-hidden="true">✳</span> MENOS REPLAY. MAIS PRESENÇA.</p>
+        <h1 id="page-title">Ao vivo é<br><em>outra história.</em></h1>
+      </div>
+      <p class="intro-copy">O som, o encontro, aquele momento.<br>Tem coisa que só acontece de perto.<br><strong>Seu próximo show começa aqui.</strong></p>
+    </section>
+
+    <div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+
+    <div class="main-grid">
+      <section id="show" class="show-card" aria-labelledby="show-title">
+        <div class="poster" aria-hidden="true">
+          <div class="poster-top"><span>INGRESOS / LIVE SESSIONS</span><span>SHOW 07</span></div>
+          <div class="poster-orbits"><i></i><i></i><i></i><i></i></div>
+          <div class="poster-title">TEM COISAS<br>QUE SÓ<br><em>AO VIVO.</em></div>
+          <div class="poster-bottom"><span>UM SHOW.<br>CEM HISTÓRIAS.</span><span class="poster-spark">✳</span><span>100 LUGARES<br>PARA ESTAR AQUI.</span></div>
+        </div>
+        <div class="show-details">
+          <div class="show-heading">
+            <div><p class="eyebrow">EDIÇÃO LIMITADA · SHOW 07</p><h2 id="show-title">Viva de perto.</h2></div>
+            <span id="availability-badge" class="availability-badge"><span class="status-dot"></span>100 lugares</span>
+          </div>
+          <p class="show-description">Uma experiência ao vivo. Um lugar para você fazer parte.</p>
+          <div class="pool-stats" aria-label="Disponibilidade de ingressos">
+            <div><span id="free-count" class="stat-number">—</span><span class="stat-label">disponíveis</span></div>
+            <div><span id="occupied-count" class="stat-number secondary-number">—</span><span class="stat-label">reservados</span></div>
+            <div><span class="stat-number secondary-number">100</span><span class="stat-label">no total</span></div>
+          </div>
+          <progress id="pool-progress" class="pool-progress" max="100" value="0" aria-label="Ingressos reservados" hidden></progress>
+          <p id="pool-freshness" class="small muted">Entre para acompanhar a disponibilidade.</p>
+          <button id="book" class="button button-dark book-button" type="button">Quero meu ingresso <span aria-hidden="true">↗</span></button>
+          <p class="booking-note"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2 15 4v5c0 4-6 7-6 7S3 13 3 9V4Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="m6 9 2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.3"/></svg> Até 2 reservas por pessoa. Você pode cancelar quando quiser.</p>
+        </div>
+      </section>
+
+      <aside class="side-column">
+        <section id="access" class="access-card" aria-labelledby="access-title">
+          <div class="card-index">01 / SEU ACESSO</div>
+          <h2 id="access-title">Bora para<br>o show?</h2>
+          <p class="muted access-description">Entre ou crie sua conta para reservar<br>seu próximo bom momento.</p>
+          <div class="auth-switch" aria-label="Tipo de acesso">
+            <button id="login-mode" class="auth-mode active" type="button" aria-pressed="true">Entrar</button>
+            <button id="register-mode" class="auth-mode" type="button" aria-pressed="false">Criar conta</button>
+          </div>
+          <form id="auth-form">
+            <label for="username">Nome de usuário</label>
+            <input id="username" name="username" placeholder="Como você se chama?" autocomplete="username" maxlength="64" required>
+            <label for="password">Senha</label>
+            <div class="password-field">
+              <input id="password" name="password" type="password" placeholder="Sua senha" autocomplete="current-password" maxlength="128" required>
+              <button id="toggle-password" class="password-toggle" type="button" aria-label="Mostrar senha" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+            </div>
+            <button id="auth-submit" class="button button-dark" type="submit">Entrar na minha conta <span aria-hidden="true">↗</span></button>
+          </form>
+          <p class="access-footnote">Seu ingresso fica vinculado à sua conta.</p>
+        </section>
+
+        <section id="session-card" class="session-card" aria-labelledby="session-title" hidden>
+          <div class="card-index">01 / SUA CONTA</div>
+          <div class="account-avatar" aria-hidden="true" id="account-avatar">I</div>
+          <h2 id="session-title">Você está<br>na lista.</h2>
+          <p class="muted">Sua conta está pronta. Agora é só<br>garantir um lugar para viver de perto.</p>
+          <div class="personal-quota"><span>Suas reservas</span><strong><span id="personal-count">0</span><small> / 2</small></strong></div>
+          <p id="quota-note" class="small muted">Você pode reservar até 2 ingressos.</p>
+          <a class="button button-outline" href="#tickets">Ver meus ingressos <span aria-hidden="true">↓</span></a>
+        </section>
+
+        <div class="promise-note"><span aria-hidden="true">✳</span><p><strong>Pequeno no tamanho.<br>Grande na experiência.</strong><br><span>Só 100 lugares. Cada um conta.</span></p></div>
+      </aside>
+    </div>
+
+    <section id="tickets" class="tickets-section" aria-labelledby="tickets-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">02 / SUA EXPERIÊNCIA</p><h2 id="tickets-title">Meus ingressos<span class="heading-period">.</span></h2></div>
+        <div class="ticket-tools"><button id="refresh" class="text-button" type="button" hidden><span aria-hidden="true">↻</span> Atualizar</button><button id="add-cart" class="button button-outline button-small" type="button" hidden>+ Adicionar ao carrinho</button></div>
+      </div>
+      <div id="tickets-empty" class="empty-state"><span class="empty-icon" aria-hidden="true">↗</span><div><h3 id="empty-title">Sua próxima história começa com um ingresso.</h3><p id="empty-description">Entre na sua conta para reservar e acompanhar seus pedidos.</p></div><span class="empty-decoration" aria-hidden="true">✳</span></div>
+      <div id="ticket-list" class="ticket-list" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="footer wrap"><a class="footer-brand" href="/">ingresos.</a><span>Feito para estar presente.</span><span>SHOW 07 <span aria-hidden="true">↗</span></span></footer>
+
+  <dialog id="cancel-dialog" aria-labelledby="cancel-title" aria-describedby="cancel-description">
+    <p class="eyebrow">SEU INGRESSO</p><h2 id="cancel-title">Liberar seu lugar?</h2>
+    <p id="cancel-description">O ingresso <strong id="cancel-order-id"></strong> será cancelado. A vaga volta a ficar disponível e poderá ser reservada por outra pessoa.</p>
+    <div class="dialog-actions"><button id="keep-ticket" class="button button-outline" type="button" autofocus>Manter ingresso</button><button id="confirm-cancel" class="button button-danger" type="button">Cancelar reserva</button></div>
+  </dialog>
+</body>
+</html>

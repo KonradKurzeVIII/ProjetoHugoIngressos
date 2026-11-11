@@ -1,0 +1,11 @@
+services:
+  tests:
+    build:
+      context: .
+      target: test
+    environment:
+      TEST_DATABASE_URL: postgres://ingressos:local-ingressos-db@db:5432/ingressos
+      TEST_ENVIRONMENT: docker-compose
+    depends_on:
+      db:
+        condition: service_healthy
