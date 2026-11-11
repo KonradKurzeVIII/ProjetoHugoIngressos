@@ -184,6 +184,4 @@ temporário. A entrega continua sendo pelo Compose.
 - `src/web.ts` e `public/`: interface.
 - `test/` e `scripts/`: testes e scripts de apoio.
 
-O [documento de entrega em PDF](output/pdf/documento-entrega.pdf) reúne a
-explicação técnica e os resultados. O [roteiro da apresentação](docs/apresentacao.md)
-está separado para a fala de cinco minutos.
+[Documento de entrega em PDF](output/pdf/documento-entrega.pdf)
