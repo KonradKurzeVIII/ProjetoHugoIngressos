@@ -184,4 +184,4 @@ temporário. A entrega continua sendo pelo Compose.
 - `src/web.ts` e `public/`: interface.
 - `test/` e `scripts/`: testes e scripts de apoio.
 
-[Documento de entrega em PDF](output/pdf/documento-entrega.pdf)
+[Documento de entrega em PDF](https://github.com/KonradKurzeVIII/ProjetoHugoIngressos/releases/download/documento-entrega/Projeto-Ingresso-Hugo.pdf)

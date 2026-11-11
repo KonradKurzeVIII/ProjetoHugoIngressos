@@ -7,3 +7,7 @@ dist/
 tmp/
 *.log
 __pycache__/
+*.pdf
+/docs/apresentacao.md
+/docs/identificacao.json
+/scripts/create-delivery-pdf.py
