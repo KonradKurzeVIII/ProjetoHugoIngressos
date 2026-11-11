@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-11T22:35:05.717Z",
-  "database": "PostgreSQL 18.6 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+  "generatedAt": "2026-11-11T22:39:38.858Z",
+  "database": "PostgreSQL 18.6 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
   "transport": "1000 pre-established HTTP/1.1 connections on localhost; simultaneous requests; no HTTP mocks or inject",
   "setup": "Users and carts inserted as fixtures; passwords use scrypt; JWTs signed by the app. Authentication endpoints tested separately.",
   "concurrentReservations": 1000,
@@ -11,14 +11,14 @@
   "clientDeadlineMs": 30000,
   "fifoAdmissionOrderVerified": true,
   "databaseInvariantsVerified": true,
-  "consistentPoolSnapshots": 2103,
-  "durationMs": 1730.4,
-  "requestsPerSecond": 577.9,
+  "consistentPoolSnapshots": 1570,
+  "durationMs": 1333.1,
+  "requestsPerSecond": 750.13,
   "latencyMs": {
-    "p50": 1046.22,
-    "p95": 1567.5,
-    "p99": 1621.02,
-    "max": 1633.1398000000008
+    "p50": 757.03,
+    "p95": 1247.08,
+    "p99": 1282.28,
+    "max": 1290.8959209999998
   },
-  "containerExecutionVerified": false
+  "containerExecutionVerified": true
 }

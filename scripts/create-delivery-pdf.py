@@ -18,8 +18,11 @@ ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "output" / "pdf" / "documento-entrega.pdf"
 identity = json.loads((ROOT / "docs" / "identificacao.json").read_text("utf-8"))
 results = json.loads((ROOT / "output" / "load-results.json").read_text("utf-8"))
+test_environment = "em containers Linux" if results.get("containerExecutionVerified") else "nativo"
 blackbox_path = ROOT / "output" / "blackbox-load-results.json"
 blackbox = json.loads(blackbox_path.read_text("utf-8")) if blackbox_path.exists() else None
+compose_path = ROOT / "output" / "compose-verification.json"
+compose = json.loads(compose_path.read_text("utf-8")) if compose_path.exists() else None
 
 INK = colors.HexColor("#172B4D")
 BLUE = colors.HexColor("#18658A")
@@ -131,7 +134,8 @@ story += section("3. Estratégia escolhida",
     "Uma única instância admite reservas e cancelamentos em uma <b>fila FIFO "
     "comum</b>, depois de autenticar e validar a requisição. Chegada significa "
     "essa admissão no servidor, não o horário do clique nem a chegada de pacotes. "
-    "A requisição aguardando na fila não mantém conexão nem transação aberta.",
+    "A requisição aguardando na fila não mantém conexão com o banco nem "
+    "transação aberta.",
     "Quando chega sua vez, a operação abre uma transação READ COMMITTED e "
     "executa <b>SELECT ... FOR NO KEY UPDATE</b> no show 7. Sob esse bloqueio, verifica "
     "proprietário, estado, quantidade global e quantidade pessoal. Só então "
@@ -166,21 +170,21 @@ story += section("5. Decisões complementares e espera",
 story.append(PageBreak())
 story += [paragraph("Testes e estado da entrega", "CoverTitle")]
 story += section("6. Como a aplicação foi testada",
-    "Suíte automatizada com PostgreSQL real portátil e conexões HTTP locais, "
-    "sem mocks de banco nem injeção HTTP do Fastify. Valida autenticação, "
+    "Carga e testes de contrato usam PostgreSQL real e conexões HTTP locais, "
+    "sem injeção HTTP do Fastify. A suíte valida autenticação, "
     "propriedade, estados, header, limite pessoal, retries concorrentes, "
     "cancelamentos, rollback e limites globais com filas independentes. "
     "Também consulta o banco para verificar as invariantes. Os 14 testes "
-    "automatizados incluem assets web, isolamento da listagem, criação de "
+    "automatizados passaram e incluem assets web, isolamento da listagem, criação de "
     "carrinho sem esperar pelo bloqueio e recuperação da fila após uma "
     "desconexão sem código do driver pg injetada de forma controlada.",
-    "No ensaio principal, 1.000 usuários e carrinhos foram preparados por SQL; "
+    f"No ensaio principal {test_environment}, 1.000 usuários e carrinhos foram preparados por SQL; "
     "JWTs válidos foram assinados pela aplicação. Mil conexões HTTP foram "
     "estabelecidas gradualmente antes de disparar as reservas juntas. A "
     "medição exclui cadastro, login e abertura de conexão. Esse desenho mede "
-    "requisições concorrentes, sem misturar uma rajada de handshakes TCP do Windows.")
+    "requisições concorrentes, sem incluir o custo de abertura das conexões TCP.")
 story += [paragraph(
-    f"<b>{results['concurrentReservations']} reservas simultâneas:</b> "
+    f"<b>{results['concurrentReservations']} tentativas simultâneas:</b> "
     f"{results['successful']} sucessos; {results['poolFull']} recusas POOL_CHEIO; "
     f"{results['unexpectedResponses']} respostas inesperadas; "
     f"{results['clientTimeouts']} timeouts.<br/>"
@@ -215,11 +219,16 @@ story += section("8. Limitações e pendências conhecidas",
     "e não sobrevive à queda da API; commits persistem e retries são seguros. "
     "A latência cresce com a fila. A evidência é limitada à carga executada: "
     "não garante ausência de falhas do sistema operacional ou recursos infinitos.",
-    "Os manifestos foram validados pelo Docker Compose portátil, mas a "
-    "execução das imagens ainda não foi verificada: o host não tem Docker "
-    "Engine operacional. Nome do aluno e URL do GitHub estão identificados "
-    "neste documento. O workflow de conformidade reproduz a validação em "
-    "containers no GitHub Actions. O envio ao classroom é feito pelo aluno.")
+    ("<b>Docker Compose validado.</b> Build, inicialização pelos dois comandos "
+     "da avaliação, healthchecks, 14 testes e carga HTTP na API de produção "
+     "passaram no GitHub Actions, em Ubuntu 24.04. Evidência do commit "
+     f"<b>{escape(compose['testedCommit'][:12])}</b>: "
+     f"<link href=\"{escape(compose['workflowRunUrl'])}\">execução de conformidade</link>. "
+     "Os relatórios e a referência estão em output/. O envio ao classroom "
+     "é feito pelo aluno."
+     if compose and compose.get("conclusion") == "success" else
+     "A execução completa pelo Docker Compose ainda precisa ser comprovada. "
+     "O envio ao classroom é feito pelo aluno."))
 
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 document = SimpleDocTemplate(

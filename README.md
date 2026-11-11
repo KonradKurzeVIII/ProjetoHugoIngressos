@@ -3,6 +3,9 @@
 API local para disputar 100 ingressos, com até duas reservas ativas por usuário.
 Implementação em Node.js 24, TypeScript, Fastify 5 e PostgreSQL 18.
 
+Aluno: João Pedro Wanderley do Nascimento. Repositório:
+[KonradKurzeVIII/ProjetoHugoIngressos](https://github.com/KonradKurzeVIII/ProjetoHugoIngressos).
+
 ## Aplicação web
 
 Acesse `http://localhost:8080` para usar a interface, servida pela própria API.
@@ -201,7 +204,7 @@ das cotas com filas independentes compartilhando o mesmo banco.
 
 O ensaio de 1.000 reservas estabelece as conexões HTTP gradualmente antes de
 disparar as requisições juntas. Isso mede processamento HTTP e banco, sem confundir
-o resultado com uma rajada de abertura de conexões TCP no Windows. Cadastro e
+o resultado com uma rajada de abertura de conexões TCP. Cadastro e
 carrinhos são fixtures SQL; JWTs válidos são assinados pela própria aplicação.
 Os endpoints de autenticação são testados separadamente. A carga usa HTTP real,
 sem mocks do banco ou injeção de requisições do Fastify.
@@ -243,7 +246,7 @@ docker compose -f docker-compose.yml -f docker-compose.test.yml run --build --rm
 cadastro/login e preparação das conexões. Resultado em
 `output/blackbox-load-results.json` no ambiente em que o cliente foi executado.
 
-## Alternativa local para esta máquina sem Docker
+## Execução nativa para desenvolvimento
 
 Com Node.js 24 e dependências já baixadas:
 
@@ -272,6 +275,18 @@ O arquivo `docs/identificacao.json` contém o nome do aluno e a URL do repositó
 Atualize os resultados e regenere o PDF antes da entrega. Python/ReportLab são necessários
 para regenerar o documento, não para executar a API ou os testes em Compose.
 
-A execução completa dos containers ainda precisa ser validada em um host com
-Docker Engine. Nesta máquina, os testes usam PostgreSQL real portátil; os
-manifestos Compose foram validados pelo Docker Compose portátil.
+## Validação da entrega
+
+Em 11/11/2026, a [execução de conformidade no GitHub Actions](https://github.com/KonradKurzeVIII/ProjetoHugoIngressos/actions/runs/43113509505)
+validou o build e a inicialização com os dois comandos exigidos pelo enunciado,
+os healthchecks, os 14 testes e a carga externa contra a API de produção em containers Linux.
+
+O ensaio de 1.000 tentativas confirmou 100 reservas, 900 recusas `POOL_CHEIO`,
+zero resposta inesperada e zero timeout. A latência p95 foi 1.247,08 ms. A carga
+externa de 400 tentativas confirmou 100 reservas e 300 recusas, sem timeout,
+e cancelou suas reservas ao final. Os testes nativos com PostgreSQL real também passaram.
+
+`output/compose-verification.json` identifica o commit testado e a execução.
+Os relatórios `output/load-results.json` e `output/blackbox-load-results.json`
+foram extraídos dessa execução em containers. A documentação final acrescenta
+as evidências sem alterar o código executado pelo workflow.

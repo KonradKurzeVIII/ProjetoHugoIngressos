@@ -1,0 +1,21 @@
+{
+  "verifiedAt": "2026-11-11T22:39:52Z",
+  "workflowRunUrl": "https://github.com/KonradKurzeVIII/ProjetoHugoIngressos/actions/runs/43113509505",
+  "workflowRunId": 43113509505,
+  "testedCommit": "00575fdde9340e8635a42c057ea1bff7389538aa",
+  "runner": "GitHub Actions, Ubuntu 24.04, Linux containers",
+  "conclusion": "success",
+  "startupCommands": [
+    "docker compose down -v",
+    "docker compose up --build -d"
+  ],
+  "healthchecksVerified": true,
+  "automatedTests": {
+    "total": 14,
+    "passed": 14,
+    "failed": 0
+  },
+  "productionHttpLoadVerified": true,
+  "loadReport": "output/load-results.json",
+  "productionLoadReport": "output/blackbox-load-results.json"
+}

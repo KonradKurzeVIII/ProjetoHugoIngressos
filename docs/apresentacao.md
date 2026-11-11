@@ -42,4 +42,5 @@ FIFO exige uma instância da API. A fila pendente está em memória e não sobre
 à queda do processo; commits permanecem no PostgreSQL e retries são seguros.
 Sem deadlines internos de processamento, a latência cresce com a fila. Os
 resultados demonstram a carga executada, não capacidade infinita.
-Separar a validação nativa já realizada da execução em containers ainda pendente.
+Mostrar a execução de conformidade aprovada no GitHub Actions, com build,
+inicialização pelo Compose, 14 testes e carga na API de produção em containers.

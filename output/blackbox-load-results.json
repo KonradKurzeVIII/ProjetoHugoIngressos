@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-11T22:36:43.746Z",
-  "baseUrl": "http://127.0.0.1:8080",
+  "generatedAt": "2026-11-11T22:39:47.264Z",
+  "baseUrl": "http://api:8080",
   "concurrentReservations": 400,
   "setup": "All users registered and logged in over HTTP before measurement; two carts per user.",
   "transport": "Pre-established persistent HTTP connections; simultaneous reservation requests.",
@@ -9,12 +9,12 @@
   "unexpectedResponses": 0,
   "clientTimeouts": 0,
   "clientDeadlineMs": 30000,
-  "durationMs": 525.03,
-  "requestsPerSecond": 761.86,
+  "durationMs": 449.64,
+  "requestsPerSecond": 889.6,
   "latencyMs": {
-    "p50": 285.66,
-    "p95": 480.1,
-    "p99": 497.04,
-    "max": 501.1129000000001
+    "p50": 269.96,
+    "p95": 422.88,
+    "p99": 432.98,
+    "max": 435.2002229999998
   }
 }
