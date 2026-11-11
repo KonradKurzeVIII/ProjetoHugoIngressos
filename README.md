@@ -183,5 +183,3 @@ temporário. A entrega continua sendo pelo Compose.
 - `src/database.ts` e `db/schema.sql`: conexões, transações e estrutura do banco.
 - `src/web.ts` e `public/`: interface.
 - `test/` e `scripts/`: testes e scripts de apoio.
-
-[Documento de entrega em PDF](https://github.com/KonradKurzeVIII/ProjetoHugoIngressos/releases/download/documento-entrega/Projeto-Ingresso-Hugo.pdf)
